@@ -7,7 +7,7 @@ const imgSchema = new schema({
         ref: 'user'
     },
     image: {
-        type: Image,
+        type: String,
         required: true
     },
     description: {
