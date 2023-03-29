@@ -1,13 +1,13 @@
+const connectToMongo = require(`./db`);
 const express = require(`express`);
 const cors = require(`cors`);
-const connectToMongo = require(`./db`)
-const bodyParser = require(`body-parser`);
 const app = express();
-const port = 5000
+const port = 5000;
 connectToMongo()
 
 app.use(express.json())
 app.use(cors())
+
 app.use("/api/auth", require("./routes/auth"))
 app.use("/api/userpath", require("./routes/userpath"))
 

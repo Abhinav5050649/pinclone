@@ -14,3 +14,5 @@ const fetchUser = (req, res, next) => {
         res.status(401).send(`Faulty Authentication`)
     }
 }
+
+module.exports = fetchUser;
