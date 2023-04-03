@@ -14,7 +14,7 @@ router.post(`/createuser`,
     body("password").isLength({min: 5}),
 ],
     async(req, res) => {
-        const errors = validationResult(req);
+        const errors = validationResult(req.body);
 
         if (!errors.isEmpty())
         {

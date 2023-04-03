@@ -7,9 +7,8 @@ const fetchUser = require("../middleware/fetchuser");
 
 router.get(`/getuserposts`, fetchUser, async(req, res) => {
     try{
-        const dets = await Img.find({userid: req.user._id})
+        const dets = await Img.find({userid: req.user.id})
         res.json(dets)
-        console.log(`Success!`)
     }catch(error){
         console.log(error)
         res.status(500).send(`Internal Server Error`)
@@ -20,7 +19,6 @@ router.get(`/getalluserposts`, fetchUser, async(req, res) => {
     try{
         const dets = await Img.find()
         res.json(dets)
-        console.log(`Success!`)
     }catch(error){
         console.log(error)
         res.status(500).send(`Internal Server Error`)
@@ -40,7 +38,7 @@ router.post(`/createpost`, fetchUser, [
         }
 
         const postIt = new Img({
-            userid: req.user._id,
+            userid: req.user.id,
             image,
             description, 
         })
@@ -59,7 +57,7 @@ router.delete(`/deletepost/:id`, fetchUser, async(req, res) => {
     if (!postIt)    res.status(404).send(`Not Found!`)
     if (postIt.userid.toString() !== req.user.id)   res.status(401).send(`Not Allowed`)
 
-    postIt = await Img.findOneAndDelete(req.params.id)
+    postIt = await Img.findByIdAndDelete(req.params.id)
     res.json({"success": "deleted successfully!", postIt: postIt});
    }catch(error){
     console.log(error)
